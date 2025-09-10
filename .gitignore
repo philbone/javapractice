@@ -1,6 +1,0 @@
-# Ignore compiled Java classes
-*.class
-
-# Ignore BlueJ files
-*.ctxt
-*.bluej

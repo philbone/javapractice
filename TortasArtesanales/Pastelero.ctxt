@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=Pastelero
+comment1.params=rut\ nroPastelero\ nombre\ fechaIngreso\ especialidad
+comment1.target=Pastelero(java.lang.String,\ int,\ java.lang.String,\ java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=boolean\ esValido()
+numComments=3
