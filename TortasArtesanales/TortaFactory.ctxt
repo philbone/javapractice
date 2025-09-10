@@ -1,5 +1,0 @@
-#BlueJ class context
-comment0.target=TortaFactory
-comment1.params=codigo\ nombre\ tamano\ sabor\ decoracion
-comment1.target=Torta\ crearTorta(int,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String)
-numComments=2
