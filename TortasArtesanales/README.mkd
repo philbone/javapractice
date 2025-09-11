@@ -19,6 +19,13 @@ elaboración.
 - Strategy → descuentos son intercambiables.
 - Factory Method → encapsula la lógica de precio de tortas.
 
+## Diagrama UML
+Este diagrama muestra las Entidades principales (Cliente, Pastelero, Torta, Venta) con sus relaciones de composición y herencia entre las clases.
+
+Además muestra el Patrón Factory Method (TortaFactory) y el Patrón Strategy con DescuentoStrategy con sus implementaciones (DescuentoEdad, DescuentoMonto).
+
+![Diagrama UML venta de tortas con strategy patter y factory method](uml_diagrama_ventas_tortas.png)
+
 ## Requerimientos
 1. Clase Cliente
     - rut (string)
@@ -56,7 +63,7 @@ elaboración.
 - 12 porciones $18.000
 - 20 porciones $30.000
 
-#### Recargos por sabor (sobre el precio base):
+### Recargos por sabor (sobre el precio base):
 - Vainilla: +0%
 - Chocolate: +10%
 - Tres Leches: +15%
