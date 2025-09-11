@@ -18,4 +18,8 @@ public class Pastelero
     public boolean esValido() {
         return nombre != null && !nombre.isEmpty() && fechaIngreso.length() == 8;
     }
+    
+    public String getNombre() {
+        return nombre;
+    }
 }

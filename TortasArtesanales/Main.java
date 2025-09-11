@@ -1,143 +1,185 @@
 import java.util.*;
 
-public abstract class Main {
-    public static void main(String[] args) {       
-        
-        Scanner scanner = new Scanner(System.in);
-        
-        // Inputs del Cliente
-        System.out.print("Rut Cliente: ");
-        String cliente_rut = scanner.nextLine();
-        System.out.print("Nombre Cliente: ");
-        String cliente_nombre = scanner.nextLine();
-        System.out.print("Edad Cliente: ");
-        int cliente_edad = Integer.parseInt(scanner.nextLine()); // Convertir a int
-        System.out.print("Email Cliente: ");        
-        String cliente_email = scanner.nextLine();
+public abstract class Main
+{
+    private static Cliente cliente;
+    private static Pastelero pastelero;
+    private static Torta torta;
+    private static Venta venta;
 
-        // Inputs del Pastelero
-        System.out.print("Rut Pastelero: ");
-        String pastelero_rut = scanner.nextLine();        
-        System.out.print("N° Pastelero: ");
-        int pastelero_numero = Integer.parseInt(scanner.nextLine()); // Convertir a int                
-        System.out.print("Nombre Pastelero: ");
-        String pastelero_nombre = scanner.nextLine();
-        System.out.print("Fecha Ingreso Pastelero: ");
-        String pastelero_fecha = scanner.nextLine();
-        System.out.print("Especialidad Pastelero: ");
-        String pastelero_especialidad = scanner.nextLine();
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        int opcion;
         
-        // Inputs de la Torta
-        System.out.print("Código Torta: ");
-        int torta_codigo = Integer.parseInt(scanner.nextLine()); // Convertir a int
-        System.out.print("Nombre Torta: ");
-        String torta_nombre = scanner.nextLine();    
-        
-        // Inputs para el tamaño
-        System.out.println("=== ELIGE EL TAMAÑO DE TU TORTA ===");
-        System.out.println("1. Ocho porciones");
-        System.out.println("2. Doce porciones");
-        System.out.println("3. Veinte porciones");
-        System.out.print("Seleccione una opción (1-3): ");        
-        int torta_tamano_opcion = Integer.parseInt(scanner.nextLine()); // Convertir a int        
-        String torta_tamano;        
-        switch (torta_tamano_opcion) {
-            case 1:
-                torta_tamano = "8 porciones";
-                break;
-            case 2:
-                torta_tamano = "12 porciones";
-                break;
-            case 3:
-                torta_tamano = "20 porciones";
-                break;
-            default:
-                torta_tamano = "Opción inválida - Porciones no definidas";
-                break;
+        // Muestra el menú
+        do {
+            System.out.println("\n=== SISTEMA DE VENTAS DE TORTAS ARTESANALES ===");
+            System.out.println("1. Ingresar Cliente");
+            System.out.println("2. Ingresar Pastelero");
+            System.out.println("3. Ingresar Torta");
+            System.out.println("4. Registrar Venta");
+            System.out.println("5. Mostrar Venta");
+            System.out.println("6. Salir");
+            System.out.print("Seleccione una opción: ");
+            opcion = Integer.parseInt(scanner.nextLine());
+
+            switch (opcion) {
+                case 1 -> cliente = ingresarCliente(scanner);
+                case 2 -> pastelero = ingresarPastelero(scanner);
+                case 3 -> torta = ingresarTorta(scanner);
+                case 4 -> registrarVenta(scanner);
+                case 5 -> mostrarVenta();
+                case 6 -> salir();
+                default -> System.out.println("XX Opción inválida XX");
+            }
+        } while (opcion != 6);
+
+        scanner.close();
+    }
+    
+    /* 
+     * La responsabilidad de capturar los datos esta separara en distintos métodos de retorno(getters)
+     * Estos métodos retornarán un objeto válidado de tipo Cliente, Pastelero o Torta según el caso.
+     * De lo contrario retornarán null.
+    */
+    
+   // Intenta la creacion de un Cliente, si es valido retorna un objeto de tipo Cliente
+    private static Cliente ingresarCliente(Scanner sc) {
+        System.out.print("Rut Cliente: ");
+        String rut = sc.nextLine();
+        System.out.print("Nombre Cliente: ");
+        String nombre = sc.nextLine();
+        System.out.print("Edad Cliente: ");
+        int edad = Integer.parseInt(sc.nextLine());
+        System.out.print("Email Cliente: ");
+        String email = sc.nextLine();
+        Cliente c = new Cliente(rut, nombre, edad, email);
+        if (!c.esValido()) {
+            System.out.println("XX Cliente inválido XX");
+            return null;
         }
-        System.out.print("Tamaño Elegido: " + torta_tamano);
-        System.out.println("");
-        
-        // Inputs para el sabor
+        System.out.println(">> Cliente registrado <<");
+        return c;
+    }
+    
+    // Intenta la creacion de un Pastelero, si es valido retorna un objeto de tipo Pastelero
+    private static Pastelero ingresarPastelero(Scanner sc) {
+        System.out.print("Rut Pastelero: ");
+        String rut = sc.nextLine();
+        System.out.print("N° Pastelero: ");
+        int nro = Integer.parseInt(sc.nextLine());
+        System.out.print("Nombre Pastelero: ");
+        String nombre = sc.nextLine();
+        System.out.print("Fecha Ingreso (YYYYMMDD): ");
+        String fechaIngreso = sc.nextLine();
+        System.out.print("Especialidad: ");
+        String especialidad = sc.nextLine();
+        Pastelero p = new Pastelero(rut, nro, nombre, fechaIngreso, especialidad);
+        if (!p.esValido()) {
+            System.out.println("XX Pastelero Inválido XX");
+            return null;
+        }
+        System.out.println(">> Pastelero Correctamente Registrado <<");
+        return p;
+    }
+    
+    // Intenta la creacion de una Torta, si es valida retorna un objeto de tipo Torta
+    private static Torta ingresarTorta(Scanner sc) {
+        System.out.print("Código Torta: ");
+        int codigo = Integer.parseInt(sc.nextLine());
+        System.out.print("Nombre Torta: ");
+        String nombre = sc.nextLine();
+
+        System.out.println("=== ELIGE EL TAMAÑO DE TU TORTA ===");
+        System.out.println("1. 8 porciones");
+        System.out.println("2. 12 porciones");
+        System.out.println("3. 20 porciones");
+        String tamano = switch (Integer.parseInt(sc.nextLine())) {
+            case 1 -> "8 porciones";
+            case 2 -> "12 porciones";
+            case 3 -> "20 porciones";
+            default -> "Inválido";
+        };
+
         System.out.println("=== ELIGE EL SABOR DE TU TORTA ===");
         System.out.println("1. Vainilla");
         System.out.println("2. Chocolate");
         System.out.println("3. Tres Leches");
         System.out.println("4. Pistacho");
-        System.out.print("Seleccione una opción (1-4): "); 
-        int torta_sabor_opcion = Integer.parseInt(scanner.nextLine()); // Convertir a int 
-        String torta_sabor;        
-        switch (torta_sabor_opcion) {
-            case 1:
-                torta_sabor = "Vainilla";
-                break;
-            case 2:
-                torta_sabor = "Chocolate";
-                break;
-            case 3:
-                torta_sabor = "Tres Leches";
-                break;
-            case 4:
-                torta_sabor = "Pistacho";
-                break;
-            default:
-                torta_sabor = "Opción inválida - Sabor no definido";
-                break;
-        }
-        System.out.print("Sabor Elegido: " + torta_sabor);
-        System.out.println("");
-        
-        // Inputs para la decoración
+        String sabor = switch (Integer.parseInt(sc.nextLine())) {
+            case 1 -> "Vainilla";
+            case 2 -> "Chocolate";
+            case 3 -> "Tres Leches";
+            case 4 -> "Pistacho";
+            default -> "Inválido";
+        };
+
         System.out.println("=== ELIGE LA DECORACIÓN DE TU TORTA ===");
         System.out.println("1. Simple");
         System.out.println("2. Personalizada");
         System.out.println("3. Temática");
-        System.out.print("Seleccione una opción (1-3): "); 
-        int torta_decoracion_opcion = Integer.parseInt(scanner.nextLine()); // Convertir a int 
-        String torta_decoracion;
-        switch (torta_decoracion_opcion) {
-            case 1:
-                torta_decoracion = "Simple";
-                break;
-            case 2:
-                torta_decoracion = "Personalizada";
-                break;
-            case 3:
-                torta_decoracion = "Temática";
-                break;
-            default:
-                torta_decoracion = "Opción inválida - Decoración no definida";
-                break;
+        String decoracion = switch (Integer.parseInt(sc.nextLine())) {
+            case 1 -> "Simple";
+            case 2 -> "Personalizada";
+            case 3 -> "Temática";
+            default -> "Inválido";
+        };
+        
+        // Aquí usamos el Factory Method que implementamos para crear las tortas
+        Torta t = TortaFactory.crearTorta(codigo, nombre, tamano, sabor, decoracion);
+        
+        // comprobamos si la torta es valida
+        if (!t.esValida()) {
+            System.out.println("XX Torta inválida XX");
+            return null;
         }
-        System.out.print("Decoración Elegida: " + torta_decoracion);  
-        System.out.println("");
+        System.out.println(">> Torta registrada. Precio unitario: $" + t.getPrecioUnitario() +" <<");
+        return t;
+    }
+    
+    // Para registrar la Venta debemos comprobar que Cliente, Pastelero y Torta sean distintos de null    
+    private static void registrarVenta(Scanner sc) {
+        if (cliente == null || pastelero == null || torta == null) {
+            System.out.println(">> Debe registrar Cliente, Pastelero y Torta antes de la venta <<");
+            return;
+        }
+        System.out.print("¿Cuantas tortas ordenara? ");
+        int cantidad = Integer.parseInt(sc.nextLine());
         
-        System.out.print("Cantidad de Tortas: ");
-        int torta_cantidad = Integer.parseInt(scanner.nextLine()); // Convertir a int 
-        
-        scanner.close();
-        
-        // Se instancian los objetos necesarios para la actividad
-        Cliente cliente = new Cliente(cliente_rut, cliente_nombre, cliente_edad, cliente_email);
-        Pastelero pastelero = new Pastelero(pastelero_rut, pastelero_numero, pastelero_nombre, pastelero_fecha, pastelero_especialidad);
-        Torta torta = TortaFactory.crearTorta(torta_codigo, torta_nombre, torta_tamano, torta_sabor, torta_decoracion);
-        
-        // Agregamos los descuentos disponibles a la lista de descuentos
+        // Acá usamos el Strategy Pattern que implementamos para los descuentos
         List<DescuentoStrategy> descuentos = Arrays.asList(new DescuentoEdad(), new DescuentoMonto());
+        venta = new Venta(cliente, torta, pastelero, cantidad, new Date(), descuentos);
         
-        // Armamos la venta con el cliente, la torta, el pastelero, la cantidad, la fecha y la lista de descuentos
-        Venta venta = new Venta(cliente, torta, pastelero, torta_cantidad, new Date(2025,8,5), descuentos);
-        
-        // la venta se auto-comprueba si es válida
-        if (venta.esValida()) {
-            System.out.println("Fecha Venta: " + venta.getFechaVenta());
-            
-            // Imprime el total bruto(precio unitario de la torta + tamaño + sabor + decoración)
-            System.out.println("Total Bruto: " + venta.calcularTotalBruto());            
-            // Imprime el total neto(total bruto - descuentos)
-            System.out.println("Total Neto: " + venta.calcularTotalNeto());
-        } else {
-            System.out.println("❌ Venta inválida.");
+        if (!venta.esValida()) {
+            System.out.println(" XX Venta inválida XX ");
+            venta = null;
+            return;
         }
+        // Si la venta es válida avisamos al usuario
+        System.out.println(">> Venta registrada con éxito <<");
+    }
+    
+    // Este método se encargará de imprimir la información del a venta por pantalla
+    private static void mostrarVenta() {
+        if (venta == null) {
+            System.out.println(">> No hay ventas registradas <<");
+            return;
+        }
+        System.out.println("\n=== DETALLE DE LA VENTA ===");
+        System.out.println("Cliente: " + venta.getCliente().getNombre());
+        System.out.println("Pastelero: " + venta.getPastelero().getNombre());
+        System.out.println("Torta: " + venta.getTorta().getNombre());
+        System.out.println("Cantidad: " + venta.getCantidad());
+        System.out.println("Fecha: " + venta.getFechaVenta());
+        System.out.println("Precio unitario: $" + venta.getTorta().getPrecioUnitario());
+        System.out.println("Total Bruto: $" + venta.calcularTotalBruto());
+        System.out.println("Total Neto: $" + venta.calcularTotalNeto());
+    }
+    
+    // Este método se precupa de apagar el sistema
+    private static void salir(){
+        System.out.println("Saliendo del sistema...");
+        System.out.println("Adiós...");
+        System.exit(0);
     }
 }

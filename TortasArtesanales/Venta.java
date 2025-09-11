@@ -22,6 +22,22 @@ public class Venta
     public Date getFechaVenta(){
         return fechaVenta;
     }
+    
+    public Cliente getCliente() {
+        return cliente;
+    }
+    
+    public Pastelero getPastelero() {
+        return pastelero;
+    }
+    
+    public Torta getTorta() {
+        return torta;
+    }
+    
+    public int getCantidad(){
+        return cantidad;
+    }
 
     public boolean esValida() {
         return cantidad > 0 && cliente.esValido() && pastelero.esValido() && torta.esValida();

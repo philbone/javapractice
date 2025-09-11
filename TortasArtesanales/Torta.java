@@ -26,4 +26,8 @@ public class Torta
                (sabor.equals("Vainilla") || sabor.equals("Chocolate") || sabor.equals("Pistacho") || sabor.equals("Tres Leches")) &&
                (decoracion.equals("Simple") || decoracion.equals("Personalizada") || decoracion.equals("Temática"));
     }
+    
+    public String getNombre(){
+        return nombre;
+    }
 }
