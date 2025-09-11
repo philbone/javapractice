@@ -3,10 +3,10 @@ public class Cliente
 {
     private String rut;
     private String nombre;
-    private int edad;
+    private byte edad;
     private String email;
 
-    public Cliente(String rut, String nombre, int edad, String email) {
+    public Cliente(String rut, String nombre, byte edad, String email) {
         this.rut = rut;
         this.nombre = nombre;
         this.edad = edad;
@@ -17,7 +17,7 @@ public class Cliente
         return nombre != null && !nombre.isEmpty() && (edad >= 18 && edad <= 80);
     }
 
-    public int getEdad() {
+    public byte getEdad() {
         return edad; 
     }
     

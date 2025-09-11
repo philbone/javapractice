@@ -49,8 +49,8 @@ public abstract class Main
         String rut = sc.nextLine();
         System.out.print("Nombre Cliente: ");
         String nombre = sc.nextLine();
-        System.out.print("Edad Cliente: ");
-        int edad = Integer.parseInt(sc.nextLine());
+        System.out.print("Edad Cliente: ");        
+        byte edad = (byte)Integer.parseInt(sc.nextLine());// ojo: si el usuario introduce un número fuera del rango de byte produciría truncamiento
         System.out.print("Email Cliente: ");
         String email = sc.nextLine();
         Cliente c = new Cliente(rut, nombre, edad, email);
