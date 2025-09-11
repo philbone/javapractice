@@ -1,4 +1,5 @@
 import java.util.List;
+import java.util.Date;
 
 public class Venta
 {
@@ -6,16 +7,20 @@ public class Venta
     private Torta torta;
     private Pastelero pastelero;
     private int cantidad;
-    private String fechaVenta;
+    private Date fechaVenta;
     private List<DescuentoStrategy> descuentos;
 
-    public Venta(Cliente cliente, Torta torta, Pastelero pastelero, int cantidad, String fechaVenta, List<DescuentoStrategy> descuentos) {
+    public Venta(Cliente cliente, Torta torta, Pastelero pastelero, int cantidad, Date fechaVenta, List<DescuentoStrategy> descuentos) {
         this.cliente = cliente;
         this.torta = torta;
         this.pastelero = pastelero;
         this.cantidad = cantidad;
         this.fechaVenta = fechaVenta;
         this.descuentos = descuentos;
+    }
+    
+    public Date getFechaVenta(){
+        return fechaVenta;
     }
 
     public boolean esValida() {
@@ -29,7 +34,7 @@ public class Venta
     public double calcularTotalNeto() {
         double total = calcularTotalBruto();
         for (DescuentoStrategy d : descuentos) {
-            total = d.aplicarDescuento(total, cliente);
+            total = d.aplicarDescuento(total, cliente, fechaVenta);
         }
         return total;
     }

@@ -10,9 +10,10 @@ public abstract class Main {
 
         List<DescuentoStrategy> descuentos = Arrays.asList(new DescuentoEdad(), new DescuentoMonto());
 
-        Venta venta = new Venta(cliente, torta, pastelero, 1, "20250910", descuentos);
+        Venta venta = new Venta(cliente, torta, pastelero, 1, new Date(2025,8,5), descuentos);
 
         if (venta.esValida()) {
+            System.out.println("Fecha Venta: " + venta.getFechaVenta());
             System.out.println("Total Bruto: " + venta.calcularTotalBruto());
             System.out.println("Total Neto: " + venta.calcularTotalNeto());
         } else {
