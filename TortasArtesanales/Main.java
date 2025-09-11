@@ -20,7 +20,7 @@ public abstract class Main
             System.out.println("4. Registrar Venta");
             System.out.println("5. Mostrar Venta");
             System.out.println("6. Salir");
-            System.out.print("Seleccione una opción: ");
+            System.out.print("SELECCIONA UNA OPCIÓN PARA CONTINUAR: ");
             opcion = Integer.parseInt(scanner.nextLine());
 
             switch (opcion) {
@@ -30,7 +30,7 @@ public abstract class Main
                 case 4 -> registrarVenta(scanner);
                 case 5 -> mostrarVenta();
                 case 6 -> salir();
-                default -> System.out.println("XX Opción inválida XX");
+                default -> System.out.println("XX LA OPCIÓN ELEGIDA ES INVÁLIDA XX");
             }
         } while (opcion != 6);
 
@@ -55,10 +55,10 @@ public abstract class Main
         String email = sc.nextLine();
         Cliente c = new Cliente(rut, nombre, edad, email);
         if (!c.esValido()) {
-            System.out.println("XX Cliente inválido XX");
+            System.out.println("XX EL CLIENTE INGRESADO ES INVÁLIDO XX");
             return null;
         }
-        System.out.println(">> Cliente registrado <<");
+        System.out.println(">> SE HA REGISTRADO EL CLIENTE EXITOSAMENTE <<");
         return c;
     }
     
@@ -76,10 +76,10 @@ public abstract class Main
         String especialidad = sc.nextLine();
         Pastelero p = new Pastelero(rut, nro, nombre, fechaIngreso, especialidad);
         if (!p.esValido()) {
-            System.out.println("XX Pastelero Inválido XX");
+            System.out.println("XX EL PASTELERO INGRESADO ES INVÁLIDO XX");
             return null;
         }
-        System.out.println(">> Pastelero Correctamente Registrado <<");
+        System.out.println(">> SE HA REGISTRADO EL PASTELERO EXITOSAMENTE <<");
         return p;
     }
     
@@ -130,20 +130,20 @@ public abstract class Main
         
         // comprobamos si la torta es valida
         if (!t.esValida()) {
-            System.out.println("XX Torta inválida XX");
+            System.out.println("XX LA TORTA INGRESADA NO ES VÁLIDA XX XX");
             return null;
         }
-        System.out.println(">> Torta registrada. Precio unitario: $" + t.getPrecioUnitario() +" <<");
+        System.out.println(">> TORTA REGISTRADA EXITOSAMENTE. PRECIO UNITARIO: $" + t.getPrecioUnitario() +" <<");
         return t;
     }
     
     // Para registrar la Venta debemos comprobar que Cliente, Pastelero y Torta sean distintos de null    
     private static void registrarVenta(Scanner sc) {
         if (cliente == null || pastelero == null || torta == null) {
-            System.out.println(">> Debe registrar Cliente, Pastelero y Torta antes de la venta <<");
+            System.out.println(">> DEBES REGISTRAR CLIENTE, PASTELERO Y TORTA ANTES DE REGISTRAR UNA VENTA <<");
             return;
         }
-        System.out.print("¿Cuantas tortas ordenara? ");
+        System.out.print("¿CUANTAS TORTAS COMO ESTA ORDENARÁ? ");
         int cantidad = Integer.parseInt(sc.nextLine());
         
         // Acá usamos el Strategy Pattern que implementamos para los descuentos
@@ -151,26 +151,26 @@ public abstract class Main
         venta = new Venta(cliente, torta, pastelero, cantidad, new Date(), descuentos);
         
         if (!venta.esValida()) {
-            System.out.println(" XX Venta inválida XX ");
+            System.out.println("XX EL VENTA NO ES VÁLIDA XX");
             venta = null;
             return;
         }
         // Si la venta es válida avisamos al usuario
-        System.out.println(">> Venta registrada con éxito <<");
+        System.out.println(">> VENTA REGISTRADA EXITOSAMENTE <<");
     }
     
     // Este método se encargará de imprimir la información del a venta por pantalla
     private static void mostrarVenta() {
         if (venta == null) {
-            System.out.println(">> No hay ventas registradas <<");
+            System.out.println(">> NO HAY VENTAS REGISTRADAS <<");
             return;
         }
         System.out.println("\n=== DETALLE DE LA VENTA ===");
+        System.out.println("Fecha: " + venta.getFechaVenta());
         System.out.println("Cliente: " + venta.getCliente().getNombre());
         System.out.println("Pastelero: " + venta.getPastelero().getNombre());
         System.out.println("Torta: " + venta.getTorta().getNombre());
-        System.out.println("Cantidad: " + venta.getCantidad());
-        System.out.println("Fecha: " + venta.getFechaVenta());
+        System.out.println("Cantidad: " + venta.getCantidad());        
         System.out.println("Precio unitario: $" + venta.getTorta().getPrecioUnitario());
         System.out.println("Total Bruto: $" + venta.calcularTotalBruto());
         System.out.println("Total Neto: $" + venta.calcularTotalNeto());
