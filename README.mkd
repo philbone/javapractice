@@ -1,0 +1,56 @@
+# Ejercicios Resueltos POO con JAVA
+
+Este repositorio nace después de ver a muchos colegas batallar (y resolver, que conste) problemas complejos con JAVA pero con un enfoque funcional. Que si bien funciona, se pierden la esencia y las ventajas del Paradigma Orientado a Objetos (POO).
+
+> Este repo no es para señalar errores, sino para mostrar cómo podemos reevaluar y mejorar nuestro código aplicando conceptos clave que hacen que nuestro software sea más flexible, mantenible y comprensible.
+
+## ¿Qué encontrarás aquí?
+Cada ejercicio en este repositorio aborda un problema sencillo, pero que habitualmente puede generar problemas debido a su naturaleza cambiante o de muchos requerimientos. Verás como aplicando principios de diseño OO, principios SOLID y patrones de diseño podemos resolver estos problemas de forma elegante.
+
+> El objetivo es que compares, contrastes y veas con tus propios ojos el "por qué" de estas prácticas.
+
+### 🔁 ¿Qué es la Refactorización?
+Es el proceso de mejorar la estructura interna de tu código sin alterar su comportamiento externo. No se añaden nuevas funciones; al contrario, se ordena, se limpia y se simplifica el diseño existente. Es como hacer una puesta a punto al coche: el modelo no cambia, pero funciona de manera más eficiente y es menos probable que se rompa.
+
+### 🧱 ¿Qué son los Patrones de Diseño?
+Son soluciones probadas y reutilizables para problemas comunes de diseño de software. No son código para copiar y pegar, sino planos o recetas que nos guían para estructurar nuestro código de una manera elegante y robusta. Nos evitan reinventar la rueda cada vez.
+
+### 🧘‍¿Qué son los Principios SOLID?
+Es un acrónimo de cinco principios que nos guían para escribir código OO de alta calidad:
+
+- **S** de _Single Responsibility_ o _Principio de Responsabilidad Única_: Una clase debe tener una, y solo una, razón para cambiar.
+
+- **O** de _Open/Closed_ o _Abierto/Cerrado_: Las clases deben estar abiertas para extensión, pero cerradas para modificación.
+
+- **L** de _Liskov Substitution_ o _Sustitución de Liskov_: Las clases derivadas deben poder ser usadas en lugar de sus clases base sin alterar el comportamiento correcto del programa.
+
+- **I** de _Interface Segregation_ o _Segrecación de Interfaces_: Es mejor tener muchas interfaces específicas que una de propósito general.
+
+- **D** de _Dependency Inversion_ o _Inversión de Dependencias_: Depende de abstracciones, no de implementaciones concretas.
+
+En conjunto, SOLID nos ayuda a crear software que es fácil de mantener, extender y testear.
+
+## 🎯 Objetivo de este Repositorio
+1. Ilustrar la Diferencia: Mostrar el contraste entre un código que simplemente "funciona" y uno que está bien diseñado.
+1. Aprender Haciendo: Proveer ejemplos concretos de cómo aplicar estos principios para resolver diferentes problemas.
+1. Promover el Buen Diseño: Incentivar la conversación sobre cómo y por qué diseñamos nuestro código de una manera y no de otra.
+1. Recuerda: No hay una única "solución perfecta". El diseño es un arte. La idea es pensar, discutir y aprender juntos.
+
+## ¿Cómo usar este repo?
+Navega a la carpeta de un ejercicio.
+
+Lee primero el código, son ejercicios cortos ¡Intenta entenderlo!
+
+Haz el ejercicio de incluir nuevos requisitos simples y trata de figurar como podrías modificar tu código actual para cumplir estos requisitos nuevos ¿te complica mucho? ¿tendrías que cambiar gran parte de tu código?
+
+Luego, compara estos ejemplos con tu código y usalos como ejemplo para refactorizar el tuyo.
+
+Pregúntate:
+
+¿Qué problemas tenía el primer enfoque?
+
+¿Cómo los resolvió el segundo?
+
+¿El código es más fácil de leer y extender?
+
+##¡Contribuciones y discusiones son bienvenidas!
