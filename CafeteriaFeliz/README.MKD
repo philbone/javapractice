@@ -1,0 +1,69 @@
+# Cafetería "El Grano Feliz" - Sistema de Pedidos
+
+## Contexto del Ejercicio
+La cafetería "El Grano Feliz" necesita modernizar su sistema de gestión de pedidos. Actualmente, calcular manualmente el costo de las bebidas personalizadas con múltiples ingredientes extra es propenso a errores. El sistema debe permitir registrar bebidas base y ingredientes extra, calcular automáticamente el precio total de cada bebida personalizada y gestionar pedidos que pueden contener múltiples bebidas.
+
+## Requerimientos
+
+- Clase Bebida
+    - nombre (String)
+    - precioBase (double)
+- Clase Pedido
+-    - listaBebidas (ArrayList<Bebida>)
+    - calcularTotal() : double → Devuelve la suma del precio de todas las bebidas en la lista.
+
+## Catálogo de Productos (Datos iniciales)
+El sistema debe crear y tener disponibles las siguientes bebidas base al iniciar:
+
+|Bebida Base       |Precio Base (CLP)|
+|------------------|-----------------|
+|Café Negro        |$1.500           |
+|Té                |$1.200           |
+|Capuccino         |$2.000           |
+|Chocolate Caliente|$1.800           |
+
+Ingredientes Extra (Se pueden agregar a cualquier bebida base):
+
+- Leche +$500
+- Chocolate +$700
+- Crema +$600
+- Lecha de Almendras +$800
+
+**Regla de Negocio:** Una bebida personalizada puede tener hasta 3 ingredientes extra.
+
+##  Funcionalidades del Sistema (Menú Consola)
+El programa debe presentar el siguiente menú:
+
+``--- CAFETERÍA EL GRANO FELIZ ---``
+
+``1. Mostrar Bebidas Base``
+
+``2. Personalizar una Bebida y Agregar al Pedido``
+
+``3. Mostrar Pedido Actual``
+
+``4. Finalizar Pedido (Checkout)``
+
+``5. Salir``
+
+### Flujo para personalizar una Bebida:
+1. El usuario selecciona una bebida base de la lista.
+1. El sistema muestra la lista de ingredientes extra disponibles.
+1. El usuario puede seleccionar hasta 3 ingredientes (uno por uno).
+1. El sistema debe mostrar el precio actualizado de la bebida después de cada selección.
+1. Al finalizar, la bebida personalizada se agrega al pedido actual.
+
+## Validaciones
+- No se puede agregar el mismo ingrediente dos veces a la misma bebida.
+- Límite de 3 ingredientes por bebida.
+- El pedido debe finalizar (checkout) mostrando el detalle de cada bebida con sus extras y el total final a pagar.
+
+## Desafío
+Antes de revisar la solución intenta resolver este ejercicio por ti mismo. Puedes usar esta lista objetivos y restricciones:
+
+- Dibuja un Diagrama de Clases inicial que represente las clases Bebida y Pedido.
+- Tu implementación debería cumplir al menos con:
+    - Un menú de consola funcional.
+    - La capacidad de personalizar bebidas respetando las reglas y validaciones.
+    - El cálculo correcto del total del pedido.
+    - Usar una lista (ArrayList) para manejar los ingredientes extras seleccionados para cada bebida.
