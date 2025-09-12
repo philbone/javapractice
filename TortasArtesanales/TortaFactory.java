@@ -1,20 +1,24 @@
+import java.util.Map;
 
 public class TortaFactory
 {
-    private static final java.util.Map<String, Integer> preciosBase = java.util.Map.of(
+    // Tabla de precio base por tamaño
+    private static final Map<String, Integer> preciosBase = Map.of(
             "8 porciones", 12000,
             "12 porciones", 18000,
             "20 porciones", 30000
     );
 
-    private static final java.util.Map<String, Double> recargosSabor = java.util.Map.of(
+    // Recargos por sabor
+    private static final Map<String, Double> recargosSabor = Map.of(
             "Vainilla", 0.0,
             "Chocolate", 0.10,
             "Tres Leches", 0.15,
             "Pistacho", 0.20
     );
-
-    private static final java.util.Map<String, Integer> recargosDecoracion = java.util.Map.of(
+    
+    // Recargos por decoración
+    private static final Map<String, Integer> recargosDecoracion = Map.of(
             "Simple", 0,
             "Personalizada", 5000,
             "Temática", 10000
