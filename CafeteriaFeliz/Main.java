@@ -6,7 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
 
-public abstract class CafeteriaSystem
+public abstract class Main
 {
     private static List<BebidaBase> bebidasBase;
     private static Map<Integer, IngredienteExtra> ingredientes;
