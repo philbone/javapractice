@@ -3,6 +3,9 @@
 ## Contexto del Ejercicio
 La cafetería "El Grano Feliz" necesita modernizar su sistema de gestión de pedidos. Actualmente, calcular manualmente el costo de las bebidas personalizadas con múltiples ingredientes extra es propenso a errores. El sistema debe permitir registrar bebidas base y ingredientes extra, calcular automáticamente el precio total de cada bebida personalizada y gestionar pedidos que pueden contener múltiples bebidas.
 
+## Diagrama de Clases
+![Diagrama UML venta de tortas con strategy patter y factory method](DiagramaClases.jpeg)
+
 ## Requerimientos
 
 - Clase Bebida
