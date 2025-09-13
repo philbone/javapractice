@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.ArrayList;
+import ingredientedecorator.Bebida;
 
 /**
  * Clase que representa un pedido con múltiples bebidas.

@@ -1,3 +1,5 @@
+package ingredientedecorator;
+
 /**
  * Ingrediente extra específico: Leche de Almendras.
  * Añade leche de almendras a la bebida con un costo adicional.

@@ -1,3 +1,5 @@
+package ingredientedecorator;
+
 /**
  * Clase abstracta que representa un ingrediente extra que puede añadirse a una bebida.
  * Implementa el patrón Decorator para extender funcionalidades de forma dinámica.

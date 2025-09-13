@@ -1,8 +1,10 @@
+package ingredientedecorator;
+
 /**
  * Ingrediente extra específico: Chocolate.
  * Añade chocolate a la bebida con un costo adicional.
  */
-class ChocolateExtra extends IngredienteExtra
+public class ChocolateExtra extends IngredienteExtra
 {
     /**
      * Constructor para crear ingrediente extra de chocolate.

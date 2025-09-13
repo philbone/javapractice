@@ -1,10 +1,12 @@
+package ingredientedecorator;
+
 import preparacionstrategy.PreparacionStrategy;
 
 /**
  * Clase que representa una bebida base sin ingredientes extra.
  * Implementa la interfaz Bebida y utiliza el patrón Strategy para la preparación.
  */
-class BebidaBase implements Bebida
+public class BebidaBase implements Bebida
 {
     protected String nombre;
     protected double precioBase;

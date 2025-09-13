@@ -1,3 +1,5 @@
+package ingredientedecorator;
+
 /**
  * Ingrediente extra específico: Leche.
  * Añade leche a la bebida con un costo adicional.

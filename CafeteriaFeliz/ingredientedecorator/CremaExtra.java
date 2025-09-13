@@ -1,3 +1,5 @@
+package ingredientedecorator;
+
 /**
  * Ingrediente extra específico: Crema.
  * Añade crema a la bebida con un costo adicional.

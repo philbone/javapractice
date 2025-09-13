@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
+
 import preparacionstrategy.*;
+import ingredientedecorator.*;
 
 /**
  * Sistema de gestión de pedidos para la cafetería "El Grano Feliz".

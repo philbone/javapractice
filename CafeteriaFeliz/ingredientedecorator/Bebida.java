@@ -1,3 +1,5 @@
+package ingredientedecorator;
+
 /**
  * Interfaz que representa una bebida en el sistema de la cafetería.
  * Define los métodos básicos que toda bebida debe implementar.
