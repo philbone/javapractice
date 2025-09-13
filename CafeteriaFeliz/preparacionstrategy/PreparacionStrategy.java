@@ -1,3 +1,5 @@
+package preparacionstrategy;
+
 /**
  * Interfaz que define la estrategia de preparación para diferentes tipos de bebidas.
  * Patrón Strategy para variar el algoritmo de preparación.

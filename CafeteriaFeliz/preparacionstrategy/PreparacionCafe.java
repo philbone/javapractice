@@ -1,3 +1,5 @@
+package preparacionstrategy;
+
 /**
  * Implementación de la estrategia de preparación para café negro.
  */

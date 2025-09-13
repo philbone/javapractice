@@ -1,3 +1,5 @@
+import preparacionstrategy.PreparacionStrategy;
+
 /**
  * Clase que representa una bebida base sin ingredientes extra.
  * Implementa la interfaz Bebida y utiliza el patrón Strategy para la preparación.
