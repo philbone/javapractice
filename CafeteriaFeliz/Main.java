@@ -6,6 +6,12 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.Arrays;
 
+/**
+ * Sistema de gestión de pedidos para la cafetería "El Grano Feliz".
+ * Permite personalizar bebidas con ingredientes extra y gestionar pedidos.
+ * 
+ * @author Felipe M.
+ */
 public abstract class Main
 {
     private static List<BebidaBase> bebidasBase;
