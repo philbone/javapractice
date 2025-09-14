@@ -11,8 +11,8 @@ public class AnimacionPreparacion
             // Diferentes tiempos de espera según el paso
             int tiempoEspera = 800; // tiempo base
             if (i == 4) { // Paso de infusionar
-                tiempoEspera = 3000; // 3 segundos para infusionar
-            } else if (i == 3 || i == 5) { // Pasos de vertido
+                tiempoEspera = 3000; // 3 segundos para variar
+            } else if (i == 3 || i == 5) { // Pasos alternativos
                 tiempoEspera = 1200;
             }            
             esperar(tiempoEspera);

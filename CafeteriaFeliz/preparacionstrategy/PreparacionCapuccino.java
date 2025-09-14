@@ -4,25 +4,25 @@ package preparacionstrategy;
  * Implementación de la estrategia de preparación para capuccino.
  * Simula un circuito automatizado con texturizado de leche.
  */
-public class PreparacionCapuccino implements PreparacionStrategy
+public class PreparacionCapuccino extends PreparacionBase
 {
-    public String preparar() {
-        AnimacionPreparacion.mostrarAnimacion(
-            getPasosPreparacion(),
-            getNombrePreparacion(),
-            getTiempoPreparacion()
-            );        
-        return getNombrePreparacion() + " listo! Tiempo: " + getTiempoPreparacion() + "s";
-    }
-    
+    /**
+    * {@inheritDoc}
+    */
     public String getNombrePreparacion(){
         return "Capuccino";
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public int getTiempoPreparacion() {
         return 12; // 12 segundos para capuccino
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public String[] getPasosPreparacion() {
         return new String[] {
             "Preparando espresso base",
@@ -35,9 +35,4 @@ public class PreparacionCapuccino implements PreparacionStrategy
             "Nivelando temperatura a 65°C"
         };
     }
-    
-    public String getDescripcionBreve() {
-        return getNombrePreparacion() + " (Preparación: " + getTiempoPreparacion() + "s)";
-    }   
-    
 }

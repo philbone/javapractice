@@ -3,28 +3,25 @@ package preparacionstrategy;
 /**
  * Implementación de la estrategia de preparación para chocolate caliente.
  */
-public class PreparacionChocolate implements PreparacionStrategy
+public class PreparacionChocolate extends PreparacionBase
 {
     /**
     * {@inheritDoc}
     */
-    public String preparar() {
-        AnimacionPreparacion.mostrarAnimacion(
-            getPasosPreparacion(),
-            getNombrePreparacion(),
-            getTiempoPreparacion()
-            );        
-        return getNombrePreparacion() + " listo! Tiempo: " + getTiempoPreparacion() + "s";
-    }
-    
     public String getNombrePreparacion(){
         return "Chocolate Caliente";
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public int getTiempoPreparacion() {
         return 4;
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public String[] getPasosPreparacion() {
         return new String[] {
             "Seleccionando chocolate negro de alta calidad",
@@ -36,9 +33,5 @@ public class PreparacionChocolate implements PreparacionStrategy
             "Espumando la superficie cremosa",
             "Decorando con virutas de chocolate"
         };
-    }
-    
-    public String getDescripcionBreve() {
-        return getNombrePreparacion() + " (Preparación: " + getTiempoPreparacion() + "s)";
     }
 }

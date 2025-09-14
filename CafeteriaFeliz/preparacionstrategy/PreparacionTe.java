@@ -3,28 +3,25 @@ package preparacionstrategy;
 /**
  * Implementación de la estrategia de preparación para té.
  */
-public class PreparacionTe implements PreparacionStrategy
+public class PreparacionTe extends PreparacionBase
 {
     /**
-     * {@inheritDoc}
-     */
-    public String preparar() {
-        AnimacionPreparacion.mostrarAnimacion(
-            getPasosPreparacion(),
-            getNombrePreparacion(),
-            getTiempoPreparacion()
-            );        
-        return getNombrePreparacion() + " listo! Tiempo: " + getTiempoPreparacion() + "s";
-    }
-    
+    * {@inheritDoc}
+    */
     public String getNombrePreparacion(){
         return "Té";
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public int getTiempoPreparacion() {
         return 8;
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public String[] getPasosPreparacion() {
         return new String[] {
              "Calentando agua a 80°C (óptimo para té)",
@@ -36,9 +33,5 @@ public class PreparacionTe implements PreparacionStrategy
             "Retirando el infusor en el punto perfecto",
             "Sirviendo en taza con aroma delicado"
         };
-    }
-    
-    public String getDescripcionBreve() {
-        return "Té (Preparación: " + getTiempoPreparacion() + "s)";
     }
 }

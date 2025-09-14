@@ -25,9 +25,14 @@ public interface PreparacionStrategy
     public int getTiempoPreparacion();
     
     /**
+     * Obtiene los pasos necesarios para ejecutar la preparación.
+     * @return lista con los pasos de la preparación
+     */
+    public String[] getPasosPreparacion();
+    
+    /**
      * Obtiene una descripción breve del proceso.
      * @return descripción breve para la orden
      */
-    public String getDescripcionBreve();   
-    
+    public String getDescripcionBreve();       
 }

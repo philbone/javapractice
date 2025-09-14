@@ -3,25 +3,25 @@ package preparacionstrategy;
 /**
  * Implementación de la estrategia de preparación para café negro.
  */
-public class PreparacionCafe implements PreparacionStrategy
-{   
-    public String preparar() {
-        AnimacionPreparacion.mostrarAnimacion(
-            getPasosPreparacion(),
-            getNombrePreparacion(),
-            getTiempoPreparacion()
-            );        
-        return getNombrePreparacion() + " listo! Tiempo: " + getTiempoPreparacion() + "s";
-    }
-    
+public class PreparacionCafe extends PreparacionBase
+{
+    /**
+    * {@inheritDoc}
+    */
     public String getNombrePreparacion(){
         return "Cafe Negro";
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public int getTiempoPreparacion() {
         return 8;
     }
     
+    /**
+    * {@inheritDoc}
+    */
     public String[] getPasosPreparacion() {
         return new String[] {
             "Calentando agua a 92°C",
@@ -33,9 +33,5 @@ public class PreparacionCafe implements PreparacionStrategy
             "Revolviendo suavemente",
             "Sirviendo en taza precalentada"
         };
-    }
-    
-    public String getDescripcionBreve() {
-        return getNombrePreparacion() + " (Preparación: " + getTiempoPreparacion() + "s)";
     }
 }
