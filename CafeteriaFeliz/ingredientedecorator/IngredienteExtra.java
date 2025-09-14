@@ -1,5 +1,7 @@
 package ingredientedecorator;
 
+import preparacionstrategy.PreparacionStrategy;
+
 /**
  * Clase abstracta que representa un ingrediente extra que puede añadirse a una bebida.
  * Implementa el patrón Decorator para extender funcionalidades de forma dinámica.
@@ -42,4 +44,12 @@ public abstract class IngredienteExtra implements Bebida
     public String getDescripcion() {
         return bebida.getDescripcion() + " + " + nombreExtra + " (+$" + precioExtra + ")";
     }
+    
+    /**
+     * {@inheritDoc}
+     * Devuelve la estrategia de preparación de la bebida decorada.
+     */
+    public PreparacionStrategy getPreparacionStrategy() {
+        return bebida.getPreparacionStrategy();
+    }    
 }

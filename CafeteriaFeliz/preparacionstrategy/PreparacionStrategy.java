@@ -11,4 +11,23 @@ public interface PreparacionStrategy
      * @return descripción del proceso de preparación
      */
     public String preparar();
+    
+    /**
+     * Obtiene el nombre de la preparación.
+     * @return el nombre de la preparación
+     */
+    public String getNombrePreparacion();
+    
+    /**
+     * Obtiene el tiempo estimado de preparación en segundos.
+     * @return tiempo de preparación en segundos
+     */
+    public int getTiempoPreparacion();
+    
+    /**
+     * Obtiene una descripción breve del proceso.
+     * @return descripción breve para la orden
+     */
+    public String getDescripcionBreve();   
+    
 }

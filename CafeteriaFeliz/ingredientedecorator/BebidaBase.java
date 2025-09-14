@@ -42,6 +42,13 @@ public class BebidaBase implements Bebida
      * {@inheritDoc}
      */
     public String getDescripcion() {
-        return preparacionStrategy.preparar() + " " + nombre + " - $" + precioBase;
+        return preparacionStrategy.getDescripcionBreve() + " - $" + precioBase;
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    public PreparacionStrategy getPreparacionStrategy() {
+        return preparacionStrategy;
     }
 }

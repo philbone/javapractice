@@ -160,8 +160,18 @@ public abstract class Main
 
     private static void finalizarPedido() {
         System.out.println("\n=== CHECKOUT ===");
+        System.out.println("Preparando su pedido...\n");
+    
+        // Preparamos cada bebida usando el servicio centralizado
+        for (Bebida bebida : pedidoActual.getBebidas()) {
+            System.out.println(ServicioPreparacion.prepararBebida(bebida));
+            System.out.println("---");
+        }
+    
+        System.out.println("\nPedido completado!");
         pedidoActual.mostrarPedido();
-        System.out.println("Gracias por su compra! :D");
-        pedidoActual = new Pedido(); // Reset order
+        System.out.println("¡Gracias por su compra! :D");
+        
+        pedidoActual = new Pedido();
     }
 }

@@ -17,6 +17,10 @@ public class Pedido
         this.bebidas = new ArrayList<>();
     }
     
+    public List<Bebida> getBebidas() {
+        return bebidas;
+    }
+    
     /**
      * Agrega una bebida al pedido actual.
      * @param bebida la bebida a agregar al pedido
