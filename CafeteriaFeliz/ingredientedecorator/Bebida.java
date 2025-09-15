@@ -9,12 +9,6 @@ import preparacionstrategy.PreparacionStrategy;
 public interface Bebida
 {
     /**
-     * Obtiene el nombre de la bebida.
-     * @return el nombre de la bebida
-     */
-    public String getNombre();
-    
-    /**
      * Obtiene el precio actual de la bebida.
      * @return el precio de la bebida en CLP
      */

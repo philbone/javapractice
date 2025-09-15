@@ -27,11 +27,15 @@ public abstract class Main
         scanner = new Scanner(System.in);
         pedidoActual = new Pedido();
 
-        int opcion;
+        int opcion = 0;
         do {
+            if(opcion != 0){
+                System.out.println("\nPresione cualquier tecla para continuar");
+                scanner.nextLine();
+            }            
             mostrarMenu();
             opcion = scanner.nextInt();
-            scanner.nextLine(); // Consume newline
+            scanner.nextLine(); // Consume newline    
 
             switch (opcion) {
                 case 1:
@@ -47,7 +51,10 @@ public abstract class Main
                     finalizarPedido();
                     break;
                 case 5:
-                    System.out.println("¡Gracias por visitar El Grano Feliz!");
+                    scanner.close();
+                    System.out.println("\nApagando Sistema... adiós.");
+                    limpiarPantalla();
+                    System.exit(0);
                     break;
                 default:
                     System.out.println("Opción no válida. Intente nuevamente.");
@@ -57,10 +64,11 @@ public abstract class Main
     
     private static void inicializarDatos() {
         bebidasBase = Arrays.asList(
-            new BebidaBase("Café Negro", 1500, new PreparacionCafe()),
-            new BebidaBase("Té", 1200, new PreparacionTe()),
-            new BebidaBase("Capuccino", 2000, new PreparacionCapuccino()),
-            new BebidaBase("Chocolate Caliente", 1800, new PreparacionChocolate())
+            new BebidaBase(1500, new PreparacionCafe()),
+            new BebidaBase(1200, new PreparacionTe()),
+            new BebidaBase(900, new PreparacionTeVerde()),
+            new BebidaBase(2000, new PreparacionCapuccino()),
+            new BebidaBase(1800, new PreparacionChocolate())
         );
         ingredientes = new HashMap<>();
         ingredientes.put(1, new LecheExtra(null));
@@ -68,27 +76,35 @@ public abstract class Main
         ingredientes.put(3, new CremaExtra(null));
         ingredientes.put(4, new LecheAlmendrasExtra(null));
     }
-    
+        
     private static void mostrarMenu() {
+        limpiarPantalla();   
         System.out.println("\n--- CAFETERÍA EL GRANO FELIZ ---");
         System.out.println("1. Mostrar Bebidas Base");
         System.out.println("2. Personalizar una Bebida y Agregar al Pedido");
         System.out.println("3. Mostrar Pedido Actual");
         System.out.println("4. Finalizar Pedido (Checkout)");
         System.out.println("5. Salir");
-        System.out.print("Seleccione una opción: ");
+        System.out.print("Seleccione una opción: ");    
+    }
+    
+    private static void limpiarPantalla(){
+        System.out.print("\033[H\033[2J");
+        if(pedidoActual.getBebidas().size() > 0){
+            pedidoActual.mostrarPedido();
+        }
     }
     
     private static void mostrarBebidasBase() {
         System.out.println("\n--- BEBIDAS BASE ---");
         for (int i = 0; i < bebidasBase.size(); i++) {
             BebidaBase bebida = bebidasBase.get(i);
-            System.out.println((i + 1) + ". " + bebida.getNombre() + " - $" + bebida.getPrecio());
+            System.out.println((i + 1) + ". " + bebida.getPreparacionStrategy().getNombrePreparacion() + " - $" + bebida.getPrecio());
         }
     }
 
     private static void personalizarBebida() {
-        // Select base beverage
+        // Selecciona la base
         mostrarBebidasBase();
         System.out.print("Seleccione una bebida base: ");
         int seleccionBase = scanner.nextInt() - 1;
@@ -103,7 +119,7 @@ public abstract class Main
         Set<Integer> ingredientesSeleccionados = new HashSet<>();
         int contadorIngredientes = 0;
 
-        // Add ingredients
+        // Si la bebida tiene menos de 3 ingredientes se muestra el menu de extras
         while (contadorIngredientes < 3) {
             System.out.println("\nIngredientes disponibles:");
             System.out.println("1. Leche (+$500)");
@@ -132,7 +148,7 @@ public abstract class Main
                 continue;
             }
 
-            // Apply decorator pattern
+            // Aplicamos el patron decorator para agregar ingredientes a la bebida personalizada
             switch (seleccionIngrediente) {
                 case 1:
                     bebidaPersonalizada = new LecheExtra(bebidaPersonalizada);
@@ -156,13 +172,15 @@ public abstract class Main
 
         pedidoActual.agregarBebida(bebidaPersonalizada);
         System.out.println("Bebida personalizada agregada al pedido!");
+        pedidoActual.mostrarPedido();
     }
 
     private static void finalizarPedido() {
-        System.out.println("\n=== CHECKOUT ===");
+        limpiarPantalla();
+        System.out.println("\n======= CHECKOUT =======");
         System.out.println("Preparando su pedido...\n");
     
-        // Preparamos cada bebida usando el servicio centralizado
+        // Preparamos cada receta usando el servicio centralizado
         for (Bebida bebida : pedidoActual.getBebidas()) {
             System.out.println(ServicioPreparacion.prepararBebida(bebida));
             System.out.println("---");
@@ -171,6 +189,7 @@ public abstract class Main
         System.out.println("\nPedido completado!");
         pedidoActual.mostrarPedido();
         System.out.println("¡Gracias por su compra! :D");
+        System.out.println("========================");
         
         pedidoActual = new Pedido();
     }

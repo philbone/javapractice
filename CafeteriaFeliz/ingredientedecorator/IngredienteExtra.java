@@ -35,7 +35,7 @@ public abstract class IngredienteExtra implements Bebida
      * {@inheritDoc}
      */
     public String getNombre() {
-        return bebida.getNombre() + " con " + nombreExtra;
+        return bebida.getPreparacionStrategy().getNombrePreparacion() + " con " + nombreExtra;
     }
     
     /**

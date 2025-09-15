@@ -3,20 +3,20 @@ package preparacionstrategy;
 /**
  * Implementación de la estrategia de preparación para té.
  */
-public class PreparacionTe extends PreparacionBase
+public class PreparacionTeVerde extends PreparacionBase
 {
     /**
     * {@inheritDoc}
     */
     public String getNombrePreparacion(){
-        return "Té Inglés";
+        return "Té Verde";
     }
     
     /**
     * {@inheritDoc}
     */
     public int getTiempoPreparacion() {
-        return 8;
+        return 15;
     }
     
     /**
@@ -24,13 +24,13 @@ public class PreparacionTe extends PreparacionBase
     */
     public String[] getPasosPreparacion() {
         return new String[] {
-             "Calentando agua a 80°C (óptimo para té)",
-            "Seleccionando hojas de té de alta calidad",
+            "Calentando agua a 70°C (óptimo para té verde)",
+            "Pesando 2.5 gramos de hojas verdes seleccionadas",
             "Precalentando la tetera de cerámica",
-            "Colocando hojas de té en el infusor",
+            "Agregando las hojas de té en la taza",
             "Vertiendo agua sobre las hojas suavemente",
             "Dejando infusionar por 3 minutos exactos",
-            "Retirando el infusor en el punto perfecto",
+            "Retirando las hojas en el punto perfecto",
             "Sirviendo en taza con aroma delicado"
         };
     }

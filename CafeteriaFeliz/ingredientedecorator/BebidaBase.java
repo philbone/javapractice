@@ -8,7 +8,6 @@ import preparacionstrategy.PreparacionStrategy;
  */
 public class BebidaBase implements Bebida
 {
-    protected String nombre;
     protected double precioBase;
     protected PreparacionStrategy preparacionStrategy;
     
@@ -18,19 +17,11 @@ public class BebidaBase implements Bebida
      * @param precioBase el precio base en CLP
      * @param strategy la estrategia de preparación específica
      */
-    public BebidaBase(String nombre, double precioBase, PreparacionStrategy strategy) {
-        this.nombre = nombre;
+    public BebidaBase(double precioBase, PreparacionStrategy strategy) {        
         this.precioBase = precioBase;
         this.preparacionStrategy = strategy;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public String getNombre() {
-        return nombre;
-    }
-    
+        
     /**
      * {@inheritDoc}
      */
