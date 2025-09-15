@@ -6,8 +6,8 @@ import preparacionstrategy.PreparacionStrategy;
  * Servicio dedicado a la preparación de bebidas.
  * Centraliza toda la lógica de preparación en un solo lugar.
  */
-public class ServicioPreparacion {
-    
+public class ServicioPreparacion
+{
     /**
      * Prepara una bebida y muestra el proceso completo.
      * @param bebida la bebida a preparar
