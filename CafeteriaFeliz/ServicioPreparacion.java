@@ -1,6 +1,5 @@
-package ingredientedecorator;
-
 import ingredientedecorator.Bebida;
+import ingredientedecorator.IngredienteExtra;
 import preparacionstrategy.PreparacionStrategy;
 
 /**
@@ -41,8 +40,8 @@ public class ServicioPreparacion {
         // Recorremos la cadena de decoradores
         while (bebidaActual instanceof IngredienteExtra) {
             IngredienteExtra extra = (IngredienteExtra) bebidaActual;
-            ingredientes.insert(0, "   → Añadiendo " + extra.nombreExtra + " (+$" + extra.precioExtra + ")\n");
-            bebidaActual = extra.bebida;
+            ingredientes.insert(0, "   → Añadiendo " + extra.getNombreExtra() + " (+$" + extra.getPrecioExtra() + ")\n");
+            bebidaActual = extra.getBebida();
         }
         
         return ingredientes.toString();

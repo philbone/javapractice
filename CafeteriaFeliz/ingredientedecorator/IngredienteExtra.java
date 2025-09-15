@@ -24,6 +24,26 @@ public abstract class IngredienteExtra implements Bebida
         this.nombreExtra = nombreExtra;
     }
     
+    public Bebida getBebida(){
+        return this.bebida;
+    }
+    
+    /**
+     * Obtiene el precio del ingrediente extra.
+     * @return el precio del ingrediente en CLP
+     */
+    public double getPrecioExtra() { 
+        return this.precioExtra;
+    }
+    
+    /**
+     * Obtiene el nombre del ingrediente extra.
+     * @return nombre del ingrediente extra
+     */
+    public String getNombreExtra(){
+        return this.nombreExtra;
+    }
+    
     /**
      * {@inheritDoc}
      */
