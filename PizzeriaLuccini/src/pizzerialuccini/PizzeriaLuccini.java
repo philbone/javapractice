@@ -1,43 +1,31 @@
 package pizzerialuccini;
 
-import pizzerialuccini.builder.*;
-import pizzerialuccini.decorator.BasePizza;
+import pizzerialuccini.builder.CustomPizzaBuilder;
+import pizzerialuccini.decorator.*;
 
 public class PizzeriaLuccini
 {
     public static void main(String[] args) {
-        
-        Director director = new Director();
-
-        // Receta clásica (Builder + Director)
-        BasePizza margarita = director.construirMargarita(new CustomPizzaBuilder());
-        System.out.println(margarita.getDescripcion() + " → $" + margarita.getPrecio());
-        
-        BasePizza cuatroQuesos = director.construirCuatroQuesos(new CustomPizzaBuilder());
-        System.out.println(cuatroQuesos.getDescripcion() + " → $" + cuatroQuesos.getPrecio());
-
-        // Receta personalizada (Builder fluido sin Director)
-        BasePizza especial = new CustomPizzaBuilder()
-            .setNombre("Especial de la Casa")
-            .setTamaño("Familiar")
-            .setMasa("Napolitana")
-            .addIngrediente("Jamón")
-            .addIngrediente("Aceitunas")
+        pruebaBasica();
+    }
+    
+    private static void pruebaBasica() {
+        // 1. Construimos una pizza Margarita con el Builder
+        BasePizza margarita = new CustomPizzaBuilder()
+            .setNombre("Margarita")
+            .setTamaño("Mediana")
+            .setMasa("Tradicional")
+            .addIngrediente("Salsa de tomate")
+            .addIngrediente("Queso mozzarella")
+            .addIngrediente("Albahaca")
             .calcularPrecio()
             .build();
-        System.out.println(especial.getDescripcion() + " → $" + especial.getPrecio());
-        
-        BasePizza chilena = new CustomPizzaBuilder()
-                .setNombre("Chilena")
-                .setTamaño("Familiar")
-                .setMasa("De Empanada")
-                .addIngrediente("Salsa de pebre")
-                .addIngrediente("Cebolla")
-                .addIngrediente("Carne Molida")
-                .addIngrediente("Queso Chanco")
-                .addIngrediente("Orégano")
-                .calcularPrecio()
-                .build();
-        System.out.println(chilena.getDescripcion() + " → $" + chilena.getPrecio());
+
+        // 2. Decoramos con toppings extra
+        PizzaComponent personalizada = new QuesoExtra(new BordeRelleno(new ChampinonesExtra(margarita)));
+
+        // 3. Mostramos resultado
+        System.out.println(personalizada.getDescripcion());
+        System.out.println("Precio final: $" + personalizada.getPrecio());
     }
 }
