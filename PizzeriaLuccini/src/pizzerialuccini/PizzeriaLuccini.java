@@ -2,15 +2,14 @@ package pizzerialuccini;
 
 import pizzerialuccini.builder.CustomPizzaBuilder;
 import pizzerialuccini.decorator.*;
+import pizzerialuccini.model.*;
 
-public class PizzeriaLuccini
-{
+public class PizzeriaLuccini {
     public static void main(String[] args) {
-        pruebaBasica();
-    }
-    
-    private static void pruebaBasica() {
-        // 1. Construimos una pizza Margarita con el Builder
+        Cliente cliente = new Cliente("12345678-9", "Juan Pérez", (byte)70, "juan@mail.com");
+        Pizzero pizzero = new Pizzero("98765432-1", 1, "Luigi", "2020-01-01", "Pizzas clásicas");
+
+        // Pizza Margarita con extras
         BasePizza margarita = new CustomPizzaBuilder()
             .setNombre("Margarita")
             .setTamaño("Mediana")
@@ -20,12 +19,25 @@ public class PizzeriaLuccini
             .addIngrediente("Albahaca")
             .calcularPrecio()
             .build();
+        PizzaComponent margaritaConExtras = new QuesoExtra(new BordeRelleno(margarita));
 
-        // 2. Decoramos con toppings extra
-        PizzaComponent personalizada = new QuesoExtra(new BordeRelleno(new ChampinonesExtra(margarita)));
+        // Pizza Pepperoni personalizada
+        BasePizza pepperoni = new CustomPizzaBuilder()
+            .setNombre("Pepperoni")
+            .setTamaño("Familiar")
+            .setMasa("Napolitana")
+            .addIngrediente("Salsa de tomate")
+            .addIngrediente("Queso mozzarella")
+            .addIngrediente("Pepperoni")
+            .calcularPrecio()
+            .build();
 
-        // 3. Mostramos resultado
-        System.out.println(personalizada.getDescripcion());
-        System.out.println("Precio final: $" + personalizada.getPrecio());
+        // Crear el pedido
+        Pedido pedido = new Pedido(cliente, pizzero);
+        pedido.agregarPizza(margaritaConExtras);
+        pedido.agregarPizza(pepperoni);
+
+        // Mostrar pedido
+        System.out.println(pedido);
     }
 }
