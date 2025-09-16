@@ -4,6 +4,7 @@
 *.dia
 *.xml
 *.mf
+*.jar
 
 doc/
 /PizzeriaLuccini/nbproject/
