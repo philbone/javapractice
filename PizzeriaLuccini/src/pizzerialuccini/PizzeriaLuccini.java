@@ -64,7 +64,7 @@ public class PizzeriaLuccini
     }
     
     private static void poblarPizzasPredeterminadas() {
-        // Pizza Margarita
+        // Pizza Margarita base
         PizzaComponent margarita = new CustomPizzaBuilder()
                 .setNombre("Margarita")
                 .setTamaño("Mediana")
@@ -75,7 +75,10 @@ public class PizzeriaLuccini
                 .calcularPrecio()
                 .build();
 
-        // Pizza Pepperoni
+        // Pizza Margarita personalizada con extras
+        PizzaComponent margaritaEspecial = new QuesoExtra(new BordeRelleno(margarita));
+
+        // Pizza Pepperoni base
         PizzaComponent pepperoni = new CustomPizzaBuilder()
                 .setNombre("Pepperoni")
                 .setTamaño("Familiar")
@@ -86,7 +89,10 @@ public class PizzeriaLuccini
                 .calcularPrecio()
                 .build();
 
-        // Pizza Cuatro Quesos
+        // Pizza Pepperoni con champiñones extra
+        PizzaComponent pepperoniConChampis = new ChampinonesExtra(pepperoni);
+
+        // Pizza Cuatro Quesos base
         PizzaComponent cuatroQuesos = new CustomPizzaBuilder()
                 .setNombre("Cuatro Quesos")
                 .setTamaño("Mediana")
@@ -99,11 +105,14 @@ public class PizzeriaLuccini
                 .build();
 
         pizzas.add(margarita);
+        pizzas.add(margaritaEspecial);
         pizzas.add(pepperoni);
+        pizzas.add(pepperoniConChampis);
         pizzas.add(cuatroQuesos);
 
-        System.out.println("Pizzas predeterminadas cargadas (Margarita, Pepperoni, Cuatro Quesos).");
+        System.out.println("Pizzas predeterminadas cargadas (incluyen variantes con Decorator).");
     }
+
 
     // --- OPCIONES DEL MENÚ ---
 
