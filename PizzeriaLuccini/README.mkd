@@ -1,0 +1,126 @@
+# Pizzería Luccini - Recetas Clásicas y Personalizadas
+
+## Contexto del Ejercicio
+Una pizzería artesanal desea modernizar la gestión de sus pedidos. El sistema debe permitir almacenar información de clientes, pizzeros, pizzas y pedidos.
+
+Cada pizza tiene un precio base según su tamaño, recargos por tipo de masa y posibles ingredientes adicionales. Además, la pizzería ofrece recetas predeterminadas (como “Margarita”, “Pepperoni” o “Cuatro Quesos”) que pueden servir como punto de partida para el pedido.
+
+El sistema debe calcular el precio unitario de la pizza considerando su configuración, aplicar descuentos según reglas de negocio y determinar el monto final del pedido.
+
+Para registrar un pedido se requiere información del cliente, el pizzero responsable y al menos una pizza válida.
+
+## Diagrama de Clases
+![Diagrama UML creación de pizzas con decorator y builder pattern](PizzeriaLuccini_DiagramaClases.jpeg)
+
+## Requerimientos
+
+### 1) Clase Cliente
+    - rut (string)
+    - nombre (string)
+    - edad (byte)
+    - email (string)
+### 2) Clase Pizzero
+    - rut (string)
+    - nroPizzero (int)
+    - nombre (string)
+    - fechaIngreso (string)
+    - especialidad (string) — p. ej. “amasado a mano”, “pizzas gourmet”
+### 3) Clase Pizza
+    - Registrar:
+        - codigo (int único)
+        - nombre (string)
+        - tamaño (string): “Personal” / “Mediana” / “Familiar”
+        - masa (string): “Tradicional” / “Integral” / “Napolitana”
+        - listaIngredientes (colección de strings)
+        - precioUnitario (float): asignado automáticamente según tablas y recargos
+
+### Tabla de precio base por tamaño (CLP):
+
+|Tamaño            |Precio Base (CLP)|
+|------------------|-----------------|
+|Personal          |$6.000           |
+|Mediana           |$10.000          |
+|Familiar          |$15.000          |
+
+### Recargos por tipo de masa (porcentaje sobre base):
+- Tradicional: +0%
+- Integral: +10%
+- Napolitana: +20%
+
+### Recargos por ingredientes adicionales (Decorator):
+- Cada ingrediente extra suma $1.500 al precio de la pizza.
+
+## Cálculo del precioUnitario de la Pizza:
+    precioUnitario = precioBase(tamaño) * (1 + recargoMasa) + costoIngredientesExtras
+
+### 4) Clase Pedido
+- Registrar:
+    - cliente (referencia a Cliente)
+    - pizzero (referencia a Pizzero)
+    - listaPizzas (colección de Pizzas)
+    - fechaPedido (string)
+
+## Reglas de Negocio
+### 1. Total Bruto del Pedido
+    totalBruto = suma de precioUnitario de cada pizza
+
+### 2. Descuentos Aplicables (en este orden):
+- Si el cliente tiene más de 65 años → 15% de descuento.
+- Luego, según monto restante(Solo uno de estos dos últimos descuentos aplica)
+    - Si supera $40.000 → 10% adicional.
+    - Si es $80.000 o más → 20% (en vez del 10%).
+
+### 3. Total Neto
+    totalNeto = totalBruto – descuentos
+### 4. Confirmación del pedido
+- Un pedido queda confirmado si:
+    - Edad del cliente está entre 18 y 80 (inclusive).
+    - Existen cliente, pizzero y al menos una pizza válida.
+    - Pizzas con precio calculado correctamente.
+
+## Validaciones
+1. Cliente
+    - nombre no puede estar vacío.
+    - edad entre 18 y 80 (inclusive) para confirmar pedido.
+2. Pizzero
+    - nombre no puede estar vacío.
+    - fechaIngreso debe tener 8 caracteres.
+3. Pizza
+    - tamaño válido: “Personal”, “Mediana”, “Familiar”.
+    - masa válida: “Tradicional”, “Integral”, “Napolitana”.
+    - ingredientes extras opcionales.
+    - precioUnitario calculado automáticamente.
+4. Pedido
+    - Debe contener al menos 1 pizza válida.
+    - Cliente y pizzero deben existir previamente.
+
+## Pruebas de funcionamiento
+### 1) Menú principal (modo consola) en el main(), con ingreso de datos por teclado:
+    === SISTEMA DE PEDIDOS DE PIZZAS ===  
+    1. Ingresar Cliente  
+    2. Ingresar Pizzero  
+    3. Ingresar Pizza  
+    4. Registrar Pedido
+    5. Mostrar Pedido  
+    6. Salir  
+### 2) Ingreso de datos previo al pedido
+    - Para registrar un pedido, deben existir previamente un Cliente, al menos una Pizza y un Pizzero.
+### 3) Cálculos automáticos
+    - Al registrar una pizza, se calcula automáticamente su precio unitario.
+    - Al confirmar un pedido, se calculan totalBruto, descuentos y totalNeto.
+### 4) Casos de prueba sugeridos
+    - Cliente 70 años, 1 pizza mediana, masa integral, 2 ingredientes extras → aplica 15% por edad + validar umbral de monto.
+    - Cliente 30 años, 3 pizzas familiares napolitanas, con varios extras → evaluar descuento por monto ($80.000+).
+    - Cliente 25 años, sin pizzas en el pedido → rechazar.
+    - Pizza con tamaño inválido → rechazar.
+
+## Regla de Cálculo (ejemplo numérico)
+Pizza Mediana ($10.000 base), masa Integral (+10%), 2 ingredientes extras (2 × $1.500 = $3.000):
+
+    precioUnitario = 10.000 * 1,10 + 3.000 = 14.000 CLP
+
+Pedido con 2 pizzas iguales:
+
+    totalBruto = 2 * 14.000 = 28.000
+    Descuento por edad (>65): 28.000 * 0,15 = 4.200
+    totalNeto = 23.800
