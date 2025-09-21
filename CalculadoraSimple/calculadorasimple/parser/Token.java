@@ -5,15 +5,26 @@ package calculadorasimple.parser;
  */
 public class Token
 {
-    final TokenType type;
-    final String value;
+    public enum Type { NUMBER, OPERATOR, PARENTHESIS }
 
-    Token(TokenType type, String value) {
+    private final Type type;
+    private final String value;
+
+    public Token(Type type, String value) {
         this.type = type;
         this.value = value;
     }
 
-    public String toString() {
+    public Type getType() {
+        return type;
+    }
+
+    public String getValue() {
         return value;
+    }
+
+    @Override
+    public String toString() {
+        return type + "(" + value + ")";
     }
 }

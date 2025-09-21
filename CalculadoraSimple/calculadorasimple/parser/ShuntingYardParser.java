@@ -1,70 +1,65 @@
 package calculadorasimple.parser;
 
-import java.util.Map;
-import java.util.HashMap;
 import java.util.List;
-import java.util.ArrayList;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
+import java.util.StringTokenizer;
 
 /**
  * Conversor Shunting-yard: de infija a RPN.
  */
 public class ShuntingYardParser
 {
-    protected static final Map<String, Operator> OPERATORS = new HashMap<>();
-
-    static {
-        OPERATORS.put("+", new Operator("+", 2, Associativity.LEFT, 2));
-        OPERATORS.put("-", new Operator("-", 2, Associativity.LEFT, 2));
-        OPERATORS.put("*", new Operator("*", 3, Associativity.LEFT, 2));
-        OPERATORS.put("/", new Operator("/", 3, Associativity.LEFT, 2));
-        // futuro: ^, %, sqrt, etc.
-    }
-
-    public static List<Token> toRPN(List<Token> tokens) {
+    public List<Token> toRPN(String expression) {
         List<Token> output = new ArrayList<>();
-        Deque<Token> stack = new ArrayDeque<>();
+        Deque<String> stack = new ArrayDeque<>();
+
+        // Aquí delegamos la tokenización
+        List<Token> tokens = new Tokenizer(expression).tokenize();
 
         for (Token token : tokens) {
-            switch (token.type) {
+            switch (token.getType()) {
                 case NUMBER -> output.add(token);
-                case FUNCTION -> stack.push(token);
+
                 case OPERATOR -> {
-                    Operator o1 = OPERATORS.get(token.value);
-                    while (!stack.isEmpty() && stack.peek().type == TokenType.OPERATOR) {
-                        Operator o2 = OPERATORS.get(stack.peek().value);
-                        if ((o1.associativity == Associativity.LEFT && o1.precedence <= o2.precedence)
-                                || (o1.associativity == Associativity.RIGHT && o1.precedence < o2.precedence)) {
-                            output.add(stack.pop());
+                    Operator o1 = OperatorRegistry.get(token.getValue());
+
+                    while (!stack.isEmpty() && OperatorRegistry.isOperator(stack.peek())) {
+                        Operator o2 = OperatorRegistry.get(stack.peek());
+                        if ((o1.associativity == Associativity.LEFT && o1.precedence <= o2.precedence) ||
+                            (o1.associativity == Associativity.RIGHT && o1.precedence < o2.precedence)) {
+                            output.add(new Token(Token.Type.OPERATOR, stack.pop()));
                         } else {
                             break;
                         }
                     }
-                    stack.push(token);
+                    stack.push(token.getValue());
                 }
-                case LEFT_PAREN -> stack.push(token);
-                case RIGHT_PAREN -> {
-                    while (!stack.isEmpty() && stack.peek().type != TokenType.LEFT_PAREN) {
-                        output.add(stack.pop());
-                    }
-                    if (stack.isEmpty() || stack.peek().type != TokenType.LEFT_PAREN) {
-                        throw new IllegalArgumentException("Paréntesis desbalanceados");
-                    }
-                    stack.pop(); // quitar "("
-                    if (!stack.isEmpty() && stack.peek().type == TokenType.FUNCTION) {
-                        output.add(stack.pop());
+
+                case PARENTHESIS -> {
+                    if (token.getValue().equals("(")) {
+                        stack.push(token.getValue());
+                    } else {
+                        while (!stack.isEmpty() && !stack.peek().equals("(")) {
+                            output.add(new Token(Token.Type.OPERATOR, stack.pop()));
+                        }
+                        if (!stack.isEmpty() && stack.peek().equals("(")) {
+                            stack.pop();
+                        } else {
+                            throw new IllegalArgumentException("Paréntesis desbalanceados");
+                        }
                     }
                 }
             }
         }
 
         while (!stack.isEmpty()) {
-            Token t = stack.pop();
-            if (t.type == TokenType.LEFT_PAREN || t.type == TokenType.RIGHT_PAREN) {
-                throw new IllegalArgumentException("Paréntesis desbalanceados");
+            String op = stack.pop();
+            if (op.equals("(") || op.equals(")")) {
+                throw new IllegalArgumentException("Paréntesis desbalanceados en la expresión");
             }
-            output.add(t);
+            output.add(new Token(Token.Type.OPERATOR, op));
         }
 
         return output;

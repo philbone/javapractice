@@ -9,41 +9,47 @@ import java.util.Set;
  */
 public class Tokenizer
 {
-    private static final Set<String> OPERATORS = Set.of("+", "-", "*", "/");
+    private final String expression;
+    private final List<Token> tokens = new ArrayList<>();
+    private int pos = 0;
 
-    public static List<Token> tokenize(String expr) {
-        List<Token> tokens = new ArrayList<>();
-        StringBuilder number = new StringBuilder();
+    public Tokenizer(String expression) {
+        this.expression = expression.replaceAll("\\s+", ""); // quitar espacios
+    }
 
-        for (int i = 0; i < expr.length(); i++) {
-            char c = expr.charAt(i);
-
-            if (Character.isWhitespace(c)) continue;
+    public List<Token> tokenize() {
+        while (pos < expression.length()) {
+            char c = expression.charAt(pos);
 
             if (Character.isDigit(c) || c == '.') {
-                number.append(c);
+                tokens.add(readNumber());
+            } else if (c == '(' || c == ')') {
+                tokens.add(new Token(Token.Type.PARENTHESIS, String.valueOf(c)));
+                pos++;
             } else {
-                if (number.length() > 0) {
-                    tokens.add(new Token(TokenType.NUMBER, number.toString()));
-                    number.setLength(0);
-                }
-
-                if (OPERATORS.contains(String.valueOf(c))) {
-                    tokens.add(new Token(TokenType.OPERATOR, String.valueOf(c)));
-                } else if (c == '(') {
-                    tokens.add(new Token(TokenType.LEFT_PAREN, "("));
-                } else if (c == ')') {
-                    tokens.add(new Token(TokenType.RIGHT_PAREN, ")"));
+                String symbol = String.valueOf(c);
+                if (OperatorRegistry.isOperator(symbol)) {
+                    tokens.add(new Token(Token.Type.OPERATOR, symbol));
+                    pos++;
                 } else {
-                    throw new IllegalArgumentException("Carácter inesperado: " + c);
+                    throw new IllegalArgumentException("Símbolo no reconocido: " + c);
                 }
             }
         }
-
-        if (number.length() > 0) {
-            tokens.add(new Token(TokenType.NUMBER, number.toString()));
-        }
-
         return tokens;
+    }
+
+    private Token readNumber() {
+        StringBuilder sb = new StringBuilder();
+        while (pos < expression.length()) {
+            char c = expression.charAt(pos);
+            if (Character.isDigit(c) || c == '.') {
+                sb.append(c);
+                pos++;
+            } else {
+                break;
+            }
+        }
+        return new Token(Token.Type.NUMBER, sb.toString());
     }
 }
