@@ -5,7 +5,7 @@ package calculadorasimple.parser;
  */
 public class Token
 {
-    public enum Type { NUMBER, OPERATOR, PARENTHESIS }
+    public enum Type { NUMBER, OPERATOR, PARENTHESIS, FUNCTION }
 
     private final Type type;
     private final String value;

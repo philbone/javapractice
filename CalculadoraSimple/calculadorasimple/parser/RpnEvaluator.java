@@ -20,6 +20,14 @@ import java.util.*;
  * Al final del proceso, la pila debe contener exactamente un valor,
  * que corresponde al resultado de la expresión.
  * </p>
+ * <p>
+ * Soporta:
+ * <ul>
+ *   <li>Operadores binarios (+, -, *, /, ^).</li>
+ *   <li>Funciones unarias (sin, cos, log).</li>
+ *   <li>Constantes (pi, e) ya convertidas en NUMBER por el Tokenizer.</li>
+ * </ul>
+ * </p>
  */
 public class RpnEvaluator
 {
@@ -36,19 +44,20 @@ public class RpnEvaluator
 
         for (Token token : rpnTokens) {
             switch (token.getType()) {
-                // Los números se convierten a double y se apilan.
-                case NUMBER -> stack.push(Double.parseDouble(token.getValue()));
+                case NUMBER -> {
+                    // Convertir el valor numérico y apilarlo
+                    stack.push(Double.parseDouble(token.getValue()));
+                }
 
-                case OPERATOR -> {
-                    // Obtener el operador desde el registro global.
+                case OPERATOR, FUNCTION -> {
                     Operator op = OperatorRegistry.get(token.getValue());
                     if (op == null) {
-                        throw new IllegalArgumentException("Operador desconocido: " + token.getValue());
+                        throw new IllegalArgumentException("Operador/función desconocido: " + token.getValue());
                     }
 
                     double result;
                     if (op.operands == 2) {
-                        // Operador binario: requiere dos operandos.
+                        // Binario
                         if (stack.size() < 2) {
                             throw new IllegalArgumentException("Faltan operandos para " + op.symbol);
                         }
@@ -56,7 +65,7 @@ public class RpnEvaluator
                         double a = stack.pop();
                         result = op.apply(a, b);
                     } else if (op.operands == 1) {
-                        // Operador unario: requiere un operando.
+                        // Unario (función)
                         if (stack.isEmpty()) {
                             throw new IllegalArgumentException("Falta operando para " + op.symbol);
                         }
@@ -65,19 +74,20 @@ public class RpnEvaluator
                     } else {
                         throw new IllegalStateException("Número de operandos no soportado: " + op.operands);
                     }
-                    // Apilar el resultado de la operación.
+
+                    // Apilar el resultado
                     stack.push(result);
                 }
 
                 default -> throw new IllegalArgumentException("Token inesperado: " + token);
             }
         }
-        
-        // Validar que quedó exactamente un resultado en la pila.
+
         if (stack.size() != 1) {
             throw new IllegalStateException("Expresión inválida, quedaron operandos sin usar: " + stack);
         }
 
         return stack.pop();
     }
+        
 }
