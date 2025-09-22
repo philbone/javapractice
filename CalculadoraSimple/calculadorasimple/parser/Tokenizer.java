@@ -9,9 +9,9 @@ import java.util.*;
  * Soporta:
  * <ul>
  *   <li>Números (enteros o decimales, con signo unario opcional al inicio).</li>
- *   <li>Operadores (+, -, *, /, ^).</li>
+ *   <li>Operadores (+, -, *, /, ^, √).</li>
  *   <li>Paréntesis ( ) para agrupar expresiones.</li>
- *   <li>Funciones matemáticas unarias (ej: sin, cos, log, √).</li>
+ *   <li>Funciones matemáticas unarias (ej: sin, cos, log).</li>
  *   <li>Constantes: pi, e.</li>
  * </ul>
  * </p>
@@ -32,13 +32,17 @@ public class Tokenizer
 
             if (Character.isDigit(c) || c == '.') {
                 tokens.add(readNumber());
-            } else if (Character.isLetter(c) || c == '√') {
+            } else if (Character.isLetter(c)) {
                 tokens.add(readIdentifier());
             } else if (c == '(' || c == ')') {
                 tokens.add(new Token(Token.Type.PARENTHESIS, String.valueOf(c)));
                 pos++;
             } else if (c == '+' || c == '-') {
                 handleSign(c);
+            } else if (c == '√') {
+                // √ es un operador unario prefijo
+                tokens.add(new Token(Token.Type.OPERATOR, "√"));
+                pos++;
             } else {
                 String symbol = String.valueOf(c);
                 if (OperatorRegistry.isOperator(symbol)) {
@@ -93,7 +97,7 @@ public class Tokenizer
      */
     private Token readIdentifier() {
         StringBuilder sb = new StringBuilder();
-        while (pos < expression.length() && (Character.isLetter(expression.charAt(pos)) || expression.charAt(pos) == '√')) {
+        while (pos < expression.length() && Character.isLetter(expression.charAt(pos))) {
             sb.append(expression.charAt(pos));
             pos++;
         }
@@ -105,7 +109,7 @@ public class Tokenizer
             case "e": return new Token(Token.Type.NUMBER, String.valueOf(Math.E));
         }
 
-        // Si no es constante, se asume función/operador unario
+        // Si no es constante, se asume función (ej: sin, cos, log)
         return new Token(Token.Type.FUNCTION, id);
     }
 }

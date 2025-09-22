@@ -23,11 +23,11 @@ public class OperatorRegistry
         operators.put("^", new Operator("^", 3, Associativity.RIGHT, Math::pow));
 
         // Operadores unarios
-        operators.put("neg", new Operator("neg", 4, Associativity.RIGHT, a -> -a));
-        operators.put("pos", new Operator("pos", 4, Associativity.RIGHT, a -> a));
-
-        // Funciones unarias
+        operators.put("neg", new Operator("neg", 2, Associativity.RIGHT, a -> -a));
+        operators.put("pos", new Operator("pos", 2, Associativity.RIGHT, a -> a));
         operators.put("√",   new Operator("√",   4, Associativity.RIGHT, Math::sqrt));
+
+        // Funciones unarias clásicas (requieren paréntesis)
         operators.put("sin", new Operator("sin", 4, Associativity.RIGHT, Math::sin));
         operators.put("cos", new Operator("cos", 4, Associativity.RIGHT, Math::cos));
         operators.put("log", new Operator("log", 4, Associativity.RIGHT, Math::log));
