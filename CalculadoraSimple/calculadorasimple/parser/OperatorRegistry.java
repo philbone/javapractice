@@ -22,20 +22,24 @@ public class OperatorRegistry
         operators.put("/", new Operator("/", 2, Associativity.LEFT, (a, b) -> a / b));
         operators.put("^", new Operator("^", 3, Associativity.RIGHT, Math::pow));
 
-        // Ejemplo de unario (raíz cuadrada)
-        operators.put("√", new Operator("√", 4, Associativity.RIGHT, Math::sqrt));
+        // Operadores unarios
+        operators.put("neg", new Operator("neg", 4, Associativity.RIGHT, a -> -a));
+        operators.put("pos", new Operator("pos", 4, Associativity.RIGHT, a -> a));
+
+        // Funciones unarias
+        operators.put("√",   new Operator("√",   4, Associativity.RIGHT, Math::sqrt));
         operators.put("sin", new Operator("sin", 4, Associativity.RIGHT, Math::sin));
         operators.put("cos", new Operator("cos", 4, Associativity.RIGHT, Math::cos));
         operators.put("log", new Operator("log", 4, Associativity.RIGHT, Math::log));
     }
-    
+
     /**
      * Obtiene un operador/función por su símbolo.
-    */
+     */
     public static Operator get(String symbol) {
         return operators.get(symbol);
     }
-    
+
     /**
      * Verifica si el símbolo corresponde a un operador o función registrado.
      */

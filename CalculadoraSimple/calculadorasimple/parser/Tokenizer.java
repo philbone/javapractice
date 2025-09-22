@@ -1,8 +1,6 @@
 package calculadorasimple.parser;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Convierte una cadena de expresión matemática en una lista de tokens.
@@ -10,17 +8,12 @@ import java.util.Set;
  * <p>
  * Soporta:
  * <ul>
- *   <li>Números (enteros o decimales, ej: 3, 2.5).</li>
+ *   <li>Números (enteros o decimales, con signo unario opcional al inicio).</li>
  *   <li>Operadores (+, -, *, /, ^).</li>
  *   <li>Paréntesis ( ) para agrupar expresiones.</li>
- *   <li>Funciones matemáticas unarias (ej: sin, cos, log).</li>
+ *   <li>Funciones matemáticas unarias (ej: sin, cos, log, √).</li>
  *   <li>Constantes: pi, e.</li>
  * </ul>
- * </p>
- *
- * <p>
- * La clase recorre carácter por carácter la expresión de entrada y genera tokens
- * adecuados que luego serán usados por el parser (Shunting-yard).
  * </p>
  */
 public class Tokenizer
@@ -30,26 +23,22 @@ public class Tokenizer
     private int pos = 0;
 
     public Tokenizer(String expression) {
-        // Se eliminan espacios en blanco para simplificar el análisis
-        this.expression = expression.replaceAll("\\s+", "");
+        this.expression = expression.replaceAll("\\s+", ""); // quitar espacios
     }
 
-    /**
-     * Realiza el proceso de tokenización de la expresión.
-     *
-     * @return lista de tokens identificados
-     */
     public List<Token> tokenize() {
         while (pos < expression.length()) {
             char c = expression.charAt(pos);
 
             if (Character.isDigit(c) || c == '.') {
                 tokens.add(readNumber());
-            } else if (Character.isLetter(c)) {
+            } else if (Character.isLetter(c) || c == '√') {
                 tokens.add(readIdentifier());
             } else if (c == '(' || c == ')') {
                 tokens.add(new Token(Token.Type.PARENTHESIS, String.valueOf(c)));
                 pos++;
+            } else if (c == '+' || c == '-') {
+                handleSign(c);
             } else {
                 String symbol = String.valueOf(c);
                 if (OperatorRegistry.isOperator(symbol)) {
@@ -61,6 +50,25 @@ public class Tokenizer
             }
         }
         return tokens;
+    }
+
+    /**
+     * Maneja signos + y - que pueden ser unarios o binarios.
+     */
+    private void handleSign(char sign) {
+        boolean esUnario = tokens.isEmpty()
+                || tokens.get(tokens.size() - 1).getType() == Token.Type.OPERATOR
+                || tokens.get(tokens.size() - 1).getValue().equals("(");
+
+        if (esUnario) {
+            // Agregamos un operador unario explícito
+            tokens.add(new Token(Token.Type.OPERATOR, sign == '-' ? "neg" : "pos"));
+            pos++;
+        } else {
+            // Es operador binario normal
+            tokens.add(new Token(Token.Type.OPERATOR, String.valueOf(sign)));
+            pos++;
+        }
     }
 
     /**
@@ -82,24 +90,22 @@ public class Tokenizer
 
     /**
      * Lee un identificador (función o constante).
-     *
-     * @return token de tipo FUNCTION o NUMBER (si es una constante).
      */
     private Token readIdentifier() {
         StringBuilder sb = new StringBuilder();
-        while (pos < expression.length() && Character.isLetter(expression.charAt(pos))) {
+        while (pos < expression.length() && (Character.isLetter(expression.charAt(pos)) || expression.charAt(pos) == '√')) {
             sb.append(expression.charAt(pos));
             pos++;
         }
         String id = sb.toString().toLowerCase();
 
-        // Constantes → tratadas como NUMBER con su valor
+        // Constantes → tratadas como NUMBER
         switch (id) {
             case "pi": return new Token(Token.Type.NUMBER, String.valueOf(Math.PI));
             case "e": return new Token(Token.Type.NUMBER, String.valueOf(Math.E));
         }
 
-        // Si no es constante, se asume función
+        // Si no es constante, se asume función/operador unario
         return new Token(Token.Type.FUNCTION, id);
     }
 }
