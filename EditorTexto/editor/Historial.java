@@ -1,17 +1,26 @@
 package editor;
 
+import java.util.Stack;
+
 /**
- * Caretaker que maneja el último estado guardado.
+ * Caretaker que maneja múltiples estados usando una pila.
  */
 public class Historial
 {
-    private EditorMemento memento;
+    private final Stack<EditorMemento> pila = new Stack<>();
 
     public void guardar(EditorMemento memento) {
-        this.memento = memento;
+        pila.push(memento);
     }
 
     public EditorMemento deshacer() {
-        return memento;
+        if (!pila.isEmpty()) {
+            return pila.pop();
+        }
+        return null;
+    }
+
+    public boolean tieneHistorial() {
+        return !pila.isEmpty();
     }
 }

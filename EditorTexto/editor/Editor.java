@@ -3,8 +3,7 @@ package editor;
 /**
  * Representa un editor de texto simple (Originator).
  */
-public class Editor
-{
+public class Editor {
     private String texto = "";
 
     public void escribir(String nuevoTexto) {
@@ -26,6 +25,8 @@ public class Editor
      * Restaura el estado desde un memento.
      */
     public void restaurar(EditorMemento memento) {
-        this.texto = memento.getEstado();
+        if (memento != null) {
+            this.texto = memento.getEstado();
+        }
     }
 }

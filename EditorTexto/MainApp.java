@@ -36,8 +36,12 @@ public class MainApp
                     System.out.println("[Estado guardado]");
                     break;
                 case 3:
-                    editor.restaurar(historial.deshacer());
-                    System.out.println("[Deshacer realizado]");
+                    if (historial.tieneHistorial()) {
+                        editor.restaurar(historial.deshacer());
+                        System.out.println("[Deshacer realizado]");
+                    } else {
+                        System.out.println("[No hay estados anteriores]");
+                    }
                     break;
                 case 4:
                     System.out.println("Texto actual: " + editor.getTexto());
