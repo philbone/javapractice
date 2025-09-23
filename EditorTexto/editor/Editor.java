@@ -3,7 +3,8 @@ package editor;
 /**
  * Representa un editor de texto simple (Originator).
  */
-public class Editor {
+public class Editor
+{
     private String texto = "";
 
     public void escribir(String nuevoTexto) {

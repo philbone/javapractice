@@ -3,7 +3,8 @@ package editor;
 /**
  * Memento que guarda el estado del editor.
  */
-public class EditorMemento {
+public class EditorMemento
+{
     private final String estado;
 
     public EditorMemento(String estado) {
@@ -14,4 +15,3 @@ public class EditorMemento {
         return estado;
     }
 }
-

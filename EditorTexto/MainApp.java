@@ -18,8 +18,9 @@ public class MainApp
             System.out.println("1. Escribir texto");
             System.out.println("2. Guardar estado");
             System.out.println("3. Deshacer");
-            System.out.println("4. Mostrar texto");
-            System.out.println("5. Salir");
+            System.out.println("4. Rehacer");
+            System.out.println("5. Mostrar texto");
+            System.out.println("6. Salir");
             System.out.print("Opción: ");
 
             int opcion = scanner.nextInt();
@@ -36,17 +37,25 @@ public class MainApp
                     System.out.println("[Estado guardado]");
                     break;
                 case 3:
-                    if (historial.tieneHistorial()) {
-                        editor.restaurar(historial.deshacer());
+                    if (historial.puedeDeshacer()) {
+                        editor.restaurar(historial.deshacer(editor.guardar()));
                         System.out.println("[Deshacer realizado]");
                     } else {
                         System.out.println("[No hay estados anteriores]");
                     }
                     break;
                 case 4:
-                    System.out.println("Texto actual: " + editor.getTexto());
+                    if (historial.puedeRehacer()) {
+                        editor.restaurar(historial.rehacer(editor.guardar()));
+                        System.out.println("[Rehacer realizado]");
+                    } else {
+                        System.out.println("[No hay estados para rehacer]");
+                    }
                     break;
                 case 5:
+                    System.out.println("Texto actual: " + editor.getTexto());
+                    break;
+                case 6:
                     salir = true;
                     break;
                 default:
