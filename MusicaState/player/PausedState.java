@@ -7,18 +7,18 @@ public class PausedState implements State
 {
     @Override
     public void play(MusicPlayer player) {
-        System.out.println("Reanudando la música ▶️");
+        System.out.println("\nReanudando la música ▶️");
         player.setState(new PlayingState());
     }
 
     @Override
     public void pause(MusicPlayer player) {
-        System.out.println("La música ya está en pausa ⏸️");
+        System.out.println("\nLa música ya está en pausa ⏸️");
     }
 
     @Override
     public void stop(MusicPlayer player) {
-        System.out.println("Deteniendo la música desde pausa ⏹️");
+        System.out.println("\nDeteniendo la música desde pausa ⏹️");
         player.setState(new StoppedState());
     }
 }

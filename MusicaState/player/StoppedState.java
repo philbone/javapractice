@@ -7,17 +7,17 @@ public class StoppedState implements State
 {
     @Override
     public void play(MusicPlayer player) {
-        System.out.println("Iniciando reproducción ▶️");
+        System.out.println("\nIniciando reproducción ▶️");
         player.setState(new PlayingState());
     }
 
     @Override
     public void pause(MusicPlayer player) {
-        System.out.println("No puedes pausar, la música está detenida ❌");
+        System.out.println("\nNo puedes pausar, la música está detenida ❌");
     }
 
     @Override
     public void stop(MusicPlayer player) {
-        System.out.println("Ya está detenida ⏹️");
+        System.out.println("\nYa está detenida ⏹️");
     }
 }
