@@ -15,6 +15,7 @@ public class MainMazmorra
         Jugador jugador = new Jugador();
         Mapa mapa = new Mapa();
         Contador contador = new Contador();
+        ExportadorJson exportador = new ExportadorJson();
 
         System.out.println("=== Jugador explora la mazmorra ===");
         for (Habitacion h : habitaciones) {
@@ -32,5 +33,11 @@ public class MainMazmorra
             h.aceptar(contador);
         }
         contador.mostrarResumen();
+
+        System.out.println("\n=== Exportador JSON de la mazmorra ===");
+        for (Habitacion h : habitaciones) {
+            h.aceptar(exportador);
+        }
+        System.out.println(exportador.exportar());
     }
 }
