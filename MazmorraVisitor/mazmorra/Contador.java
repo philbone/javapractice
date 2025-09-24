@@ -26,5 +26,5 @@ public class Contador implements Visitante
         System.out.println("- Tesoros: " + tesoros);
         System.out.println("- Trampas: " + trampas);
         System.out.println("- Monstruos: " + monstruos);
-    }    
+    }
 }
