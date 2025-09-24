@@ -1,5 +1,8 @@
 package mazmorra;
 
+import java.io.FileWriter;
+import java.io.IOException;
+
 public class ExportadorJson implements Visitante
 {
     private StringBuilder json = new StringBuilder();
@@ -49,5 +52,14 @@ public class ExportadorJson implements Visitante
 
     public String exportar() {
         return json.append("\n]").toString();
+    }
+
+    public void guardarEnArchivo(String rutaArchivo) {
+        try (FileWriter writer = new FileWriter(rutaArchivo)) {
+            writer.write(exportar());
+            System.out.println("Mazmorra exportada en: " + rutaArchivo);
+        } catch (IOException e) {
+            System.out.println("Error al guardar el archivo: " + e.getMessage());
+        }
     }
 }

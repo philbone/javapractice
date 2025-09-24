@@ -1,5 +1,7 @@
 import mazmorra.*;
 
+import java.util.Scanner;
+
 public class MainMazmorra
 {
     public static void main(String[] args) {
@@ -38,6 +40,12 @@ public class MainMazmorra
         for (Habitacion h : habitaciones) {
             h.aceptar(exportador);
         }
-        System.out.println(exportador.exportar());
+
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Ingrese la ruta del archivo para guardar el JSON (ejemplo: /tmp/mazmorra.json): ");
+        String ruta = scanner.nextLine();
+
+        exportador.guardarEnArchivo(ruta);
+        scanner.close();
     }
 }
